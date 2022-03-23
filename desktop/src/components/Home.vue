@@ -24,7 +24,7 @@
             Shuffled Word
           </v-card-title>
           <v-card-text class="text-h4">
-            {{shuffledWord}}
+            {{this.shuffledWord}}
           </v-card-text>
         </v-card>
       </v-col>
@@ -42,13 +42,15 @@
       shuffledWord: ""
     }),
     methods: {
-      shuffle () {
-        let url = `http://localhost:8080/embaralhar?frase=${this.wordToShuffle}`
+      setText(text){
+        this.shuffledWord = text
+      },
+      async shuffle () {
+        let url = `http://localhost:3000/embaralhar?frase=${this.wordToShuffle}`
         fetch(url).then(function(response) {
-          response.json().then(function(data) {
-            console.log(data);
-            this.shuffledWord = data
-          });
+          return response.json()
+        }).then(response =>{
+          this.setText(response)
         }).catch(function(err) {
           console.error('Failed retrieving information', err);
         });
