@@ -1,12 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Res, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Get('embaralhar')
+  async shufflePhrase(@Query('frase') phrase: string, @Res() response){
+    response.status(200).send( await this.appService.shufflePhrase() )
   }
 }
