@@ -7,6 +7,6 @@ export class AppController {
 
   @Get('embaralhar')
   async shufflePhrase(@Query('frase') phrase: string, @Res() response){
-    response.status(200).send( await this.appService.shufflePhrase() )
+    response.status(200).send( await this.appService.shufflePhrase(phrase) )
   }
 }
